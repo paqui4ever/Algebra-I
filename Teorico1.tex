@@ -1,0 +1,589 @@
+\documentclass{report}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{enumitem}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage[margin=3cm]{geometry}
+\usepackage{setspace}
+\usepackage{amssymb}
+\usepackage{background}
+\usepackage[spanish]{babel}
+\usepackage{biblatex}
+
+\onehalfspacing
+
+\newcommand{\card}[1]{\##1}
+
+\title{Álgebra I - Teoría I}
+\author{Silvano Picard}
+\date{Abril 2024}
+
+\addbibresource{./bibliografia.bib}
+
+\begin{document}
+
+
+
+\backgroundsetup{
+    scale=1,
+    color=black,
+    opacity=1,
+    angle=0,
+    vshift=2.5cm,
+    hshift=-2.5cm,
+    position={current page.south east},
+    contents={%
+        \includegraphics[width=3cm,keepaspectratio]{logo_uba.jpg}
+    },
+    placement=default,
+}
+
+\BgThispage
+
+\maketitle
+
+
+\tableofcontents 
+
+\chapter{Conjuntos, Relaciones y Funciones}
+
+\section{Conjuntos}
+
+Se dice conjunto a una colección de objetos, los cuales son llamados elementos. Un ejemplo de conjunto puede ser: \begin{math}
+    A = {1,2,3,7,8}
+\end{math}. Al definir un conjunto no importa el orden y tampoco la repetición, ya que en este último caso cuentan como si aparecieran una sola vez.
+    Un conjunto puede describirgse de dos maneras: 
+    \begin{itemize}
+        \item Por comprensión: \begin{math}
+            \mathbb{Q} = \left\{\frac{a}{b}, a \in \mathbb{Z}, b \in \mathbb{N}\right\}
+        \end{math}
+        \item Por extensión: \begin{math}
+            \mathbb{N} = \left\{1,2,3,4,...\right\}
+        \end{math}
+    \end{itemize}
+\subsection{Pertenencia}
+Respecto al conjunto vacío éste no pertenece a otro conjunto a menos que sea explicitado. Entonces si A es un conjunto definido como \begin{math}
+    A = \{1,2,3,4\} \Rightarrow \emptyset \notin A
+\end{math} luego si B es otro conjunto definido como \begin{math}
+    B = \{3,5,\emptyset,8\} \Rightarrow \emptyset \in B.
+\end{math}
+\subsection{Inclusión}
+Sean A y B conjuntos. Se dice que B está incluido en A cuando todos los elementos de B pertenecen a A: \begin{math}
+    B \subseteq A \iff \forall x: x \in B \Rightarrow x \in A
+\end{math}.
+
+Se dice que B no está incluido en A cuando algún elemento de B no pertenece a A: \begin{math}
+    B \nsubseteq A \iff \exists x \in B: x \notin A
+\end{math}.
+
+Entonces tenemos las siguientes afirmaciones tautológicas: \begin{itemize}
+    \item \(A \subseteq A\) 
+    \item \(\emptyset \subseteq A\)
+\end{itemize}
+\subsection{Conjunto de partes}
+Los elemtos de $p(a)$ son los subconjuntos de A: \begin{math}
+    B \in p(a) \iff B \subseteq A
+\end{math}. Así tengo que 
+    $p(\emptyset) = \left\{\emptyset \right\}$ por tanto $\emptyset \in p(\emptyset)$ pues $\emptyset \subseteq \emptyset$
+
+\subsection{Operaciones entre conjuntos}
+\subsubsection{Complemento}
+Siendo A y U conjuntos defino el complemento de A como:
+\begin{math}
+    A \subseteq U \Rightarrow A^c \subseteq U, x \in A^c \iff x \in U \land x \notin A
+\end{math}
+\subsubsection{Unión}
+Siendo A,B,U conjuntos y $A,B\subseteq U$, la unión de A y B se define como: \begin{math}
+    A\cup B = \left\{x\in U: x\in A \lor x\in B\right\}
+\end{math}. Entonces tengo que $A\cup B = B \cup A$, $A \cup \emptyset = A$, $A \cup U = U$ y $A \cup A^c = U$
+\subsubsection{Intersección}
+Siendo A,B,U conjuntos tales que $A,B \subseteq U$. La intersección de A y B se escribe como: \begin{math}
+    A \cap B = \left\{x\in U: x \in A \land x \in B\right\}
+\end{math}. 
+
+Entonces tengo que: \begin{itemize}
+    \item $A \cap B = B \cap A$
+    \item $A \cap \emptyset = \emptyset$
+    \item $A \cap U = A$
+    \item $A \cap A^c=\emptyset$
+    \item $A \cap B = B \iff B \subseteq A$
+\end{itemize} 
+
+Por tanto puedo decir que \begin{math}
+    \emptyset \subseteq (A \cap B) \subseteq (A \cup B) \subseteq U 
+\end{math}.
+\subsubsection{Leyes de De Morgan}
+Siendo A,B,U conjuntos tales que $A,B \subseteq U$ tengo que: \begin{itemize}
+    \item \begin{math}
+        (A \cup B)^c = A^c \cap B^c
+    \end{math}
+    \item \begin{math}
+        (A \cap B)^c = A^c \cup B^c
+    \end{math}
+\end{itemize}
+\subsubsection{Diferencia}
+Sean A,B,U conjuntos y $A,B \subseteq U$ defino la diferencia entre A y B como: \begin{math}
+    A \setminus B = \left\{x\in A: x \notin B\right\}
+\end{math}
+
+Entonces si $A \cap B = \emptyset \Rightarrow [(A \setminus B = A) \land (B \setminus A = B)]$ y además: \begin{itemize}
+    \item $A \setminus B \neq B \setminus A$ (en general)
+    \item $A \setminus \emptyset = A$
+    \item $A \setminus U = \emptyset$
+    \item $\emptyset \setminus A = \emptyset$
+    \item $U \setminus A = A^c$
+\end{itemize} 
+
+\subsubsection{Diferencia Simétrica}
+Sean A,B,U conjuntos tales que $A,B \subseteq U$ defino la diferencia simétrica como: \begin{math}
+    A \triangle B = (A \setminus B) \cup (B \setminus A) = (A \cup B) \setminus (A \cap B) 
+\end{math}. 
+
+Entonces tengo que: \begin{itemize}
+    \item $A\triangle B = B \triangle A$
+    \item $A \triangle \emptyset = A$
+    \item $A\triangle U = A^c$
+    \item $A\triangle A = \emptyset$
+    \item $A \triangle A^c = U$
+\end{itemize}
+
+\subsubsection{Propiedad distributiva en conjuntos}
+\begin{itemize}
+    \item \begin{math}
+        X \cap (Y \cup Z) = (X \cap Y) \cup (X \cap Z) 
+    \end{math}
+    \item \begin{math}
+        X \cup (Y \cap Z) = (X \cup Y) \cap (X \cup Z)
+    \end{math}
+\end{itemize}
+
+\subsubsection{Producto cartesiano}
+Siendo A,B,U,V conjuntos tales que $A \subseteq U$ y $B \subseteq V$ defino el producto cartesiano como: \begin{math}
+    A \times B = \left\{(a,b): a\in A \land b\in B\right\} \subseteq U\times V
+\end{math}
+
+De esta forma puedo establecer las siguientes afirmaciones: \begin{itemize}
+    \item \begin{math}
+        A \times B = B \times A \iff A=B
+    \end{math}
+    \item \begin{math}
+        A \times \emptyset = \emptyset
+    \end{math}
+    \item \begin{math}
+        \emptyset \times B = \emptyset
+    \end{math}
+    \item \begin{math}
+        U \times V = \left\{(x,y)/x\in V \land y \in V \right\}
+    \end{math}
+\end{itemize}
+
+\section{Relaciones}
+
+Sean A,B conjuntos, una relación R de A en B es un subconjunto (cualquiera) de $A \times B$ osea que: R relación de A en B $\iff R \subseteq A\times B \iff R \in p(A\times B)$.
+
+Un ejemplo puede ser $A=\left\{a,b,c\right\}$ y $B=\left\{1,2\right\}$ y $R_1 = \left\{(a,1),(b,1),(b,2)\right\}$. Otros útiles pueden ser $R_2 = \emptyset$ (nadie está relacionado con nadie) y $R_3 = A\times B$ (todos están relacionados con todos).
+
+\subsection{Relaciones de un conjunto en sí mismo}
+
+Sea A un conjunto. Una relación en A es un subconjunto (cualquiera) de $A\times A$ ($A^2$). R relación en A $\iff R \subseteq A^2 \iff R \in p(A^2)$
+
+\subsubsection{Propiedades}
+Sea $R \in p(A^2)$ una relación en A:\begin{itemize}
+    \item R es reflexiva si $\forall x \in A$ se tiene xRx
+    \item R es simétrica si $\forall x, y \in A$ x tiene xRy $\Rightarrow$ yRx
+    \item R es transitiva si $\forall x,y,z \in A$ se tiene xRy $\land$ yRz $\Rightarrow$ xRz
+    \item R es antisimétrica si $\forall x,y \in A$ se tiene xRy $\land$ yRx $\Rightarrow$ x=y, lo cual es lo mismo que decir $\forall x,y \in A$ si $x \neq y$ y xRy $\Rightarrow$ $y \cancel{R} x$
+\end{itemize}
+
+\subsection{Relaciones de equivalencia y relaciones de orden}
+Sea R una relación en A entonces R es una relación de equivalencia si R es reflexiva, simétrica y transitiva.
+
+Luego, se dice que R es una relación de orden si R es reflexiva, antisimétrica y transitiva
+
+\subsection{Particiones y clases de equivalencia}
+Se dice clase de equivalencia de x cuando tengo un conjunto de todos los elementos relacionados con ese x. Por ejemplo si tengo un $R=\left\{(2,5),(2,8)\right\}$ tengo que la clase de equivalencia de 2 es: [2] = $\left\{5,8\right\}$
+
+\section{Funciones}
+Dados X, Y conjuntos. Una funcion $f:X \rightarrow Y$ es una asignación que a cada elemento $x \in X$ le asigna un elemento y (solo uno) de Y. Se nota $y=f(x)$.
+
+$R = \left\{(x,y) \in X \times Y\right\}$. R relación es una fucnión $\iff$ $\forall x \in X, \exists y \in Y: (x,y)\in R$ y además y es único. Es decir que a $\forall x \in X, \exists! y \in Y: (x,y) \in R$ se lo llama $y=f(x)$.
+
+$f:X \rightarrow Y$ es la función nula si $f(x)=0, \forall x \in X$. Además f y g son iguales como funciones si: $f,g:X \rightarrow Y: f=g \iff f(x) = g(x), \forall x\in X$
+
+\subsection{Imagen y dominio de f}
+Se define la imagen de f como: $Im(f) = \left\{y\in Y: \exists x \in X: f(x) = y\right\} \subseteq Y$. La imagen es un subconjunto del conjunto de llegada, $Im(f) \subseteq Y$.
+
+El dominio es lo mismo que el conjunto de partida (para nosotros).
+
+\subsection{Inyectividad, sobreyectividad y biyectividad}
+Sea $f:X \rightarrow Y$,
+
+\begin{itemize}
+    \item f es inyectiva \begin{math}
+        \iff \forall x_1,x_2 \in X, f(x_1)=f(x_2) \Rightarrow x_1 = x_2
+    \end{math} o también se puede ver como: f es inyectiva
+    \begin{math}
+        \iff \forall x_1,x_2 \in X, x_1 \neq x_2 \Rightarrow f(x_1) \neq f(x_2)
+    \end{math}
+    \item f es sobreyectiva $\iff Im(f) = Y$
+    \item f es biyectiva $\iff$ f es inyectiva y sobreyectiva
+\end{itemize}
+
+\subsection{Función inversa}
+Sea $f:X \rightarrow Y$ biyectiva, osea $\forall y \in Y, \exists!x: y = f(x)$, entonces $f^{-1}:Y \rightarrow X, f^{-1}(y) = x \iff f(x) = y$. Por definición, la función inversa $f^{-1}$ es biyectiva y $(f^{-1})^{-1} = f$.
+
+\subsection{Composición de funciones}
+Sea $f:X \rightarrow Y$ entonces tengo que: $f^{-1}(f(x)) = x, \forall x \in X$ es decir que $f^{-1}\circ f = id_x \rightarrow f^{-1}\circ f(x) = f^{-1}(f(x))$. 
+
+También vale que  $(f\circ f^{-1})(y) = f(f^{-1}(y)) = y, \forall y \in Y: f\circ f^{-1}=id_y$. Entonces podemos concluir que se cumple $f\circ f^{-1} = id_y$ y $f^{-1}\circ f = id_x$.
+
+\chapter{Numeros Naturales e Inducción}
+\section{Sumatoria y productoria}
+\begin{itemize}
+    \item Suma de Gauss: \begin{math}
+        \forall n \in \mathbb{N}, S_n = \frac{n(n+1)}{2} = \sum_{i=1}^{n} i
+    \end{math}
+    \item Suma geométrica: \begin{math}
+        Q_n = \sum_{k=0}^n q^k 
+    \end{math}. Escrito de otra manera implica que si $q \neq$ 1 entonces \begin{math}
+        Q_n = \frac{q^{n+1} - 1}{q-1}
+    \end{math} y si q = 1 entonces $Q_n = n + 1$.
+\end{itemize}
+
+\subsection{Propiedades de la sumatoria y la productoria}
+\begin{itemize}
+    \item \begin{math}
+        \sum_{k=1}^n a_k + \sum_{k=1}^n b_k = \sum_{k=1}^n (a_k + b_k)
+    \end{math}
+    \item \begin{math}
+        c \cdot \sum_{k=1}^n a_k = \sum_{k=1}^n (c \cdot a_k)
+    \end{math}
+    \item \begin{math}
+        \sum_{k=1}^{n+1} a_k = \sum_{k=1}^n a_k + a_{n+1}
+    \end{math}
+\end{itemize}
+
+Las propiedades escritas para la sumatoria también aplican para la productoria.
+
+\subsection{Principios de Inducción}
+Sea p(n) una proposición sobre $\mathbb{N}$ ($\forall n, p(n)V \lor p(n)F$) tengo la pregunta: ¿p(n) verdadero para todo $n \in \mathbb{N}$?. Además tengo que un conjunto inductivo se define de la siguiente manera:
+
+Sea $H \subseteq \mathbb{N}$ es inductivo si: \begin{itemize}
+    \item $1 \in H$
+    \item $\forall h \in \mathbb{R}, h \in H \Rightarrow h + 1 \in H$
+\end{itemize}
+
+\subsubsection{Principio de Inducción I}
+Sea p(n) una proposición sobre $\mathbb{N}$, si se cumple: \begin{itemize}
+    \item p(1)V
+    \item $\forall h \in \mathbb{N}, p(h)V \Rightarrow p(h+1)V$
+\end{itemize}
+Entonces tengo que p(n) es verdadero $\forall n \in \mathbb{N}$
+
+\subsubsection{Principio de Inducción II}
+Sea $n_0 \in \mathbb{Z}$ y sea p(n) una proposición sobre $\mathbb{Z}_{\geq n_0}$, si se cumple: \begin{itemize}
+    \item p($n_0$) es V
+    \item $\forall h \in \mathbb{Z}_{\geq n_0}$, p(h) V $\Rightarrow$ p(h+1)V
+\end{itemize}
+Entonces puedo afirmar que p(n) es V $\forall n \geq n_0$
+
+\subsubsection{Principio de Inducción III}
+Sea p(n) una proposición sobre $\mathbb {N}$, si se cumple:
+\begin{itemize}
+    \item p(1)V $\land$ p(2)V
+    \item $\forall h \in \mathbb {N},$ p(h)V $\land$ p(h+1)V $\Rightarrow$ p(h+2)V
+\end{itemize}
+Entonces puedo afirmar que p(n) es V $\forall n \in \mathbb{N}$
+
+\subsubsection{Principio de Inducción IV}
+Sea p(n) una proposición sobre $\mathbb{Z}_{\geq n_0}$, si se cumple:
+\begin{itemize}
+    \item p($n_0$)V $\land$ p($n_0 + 1$)V
+    \item $\forall h \in \mathbb{Z}_{\geq n_0}$, p(h)V $\land$ p(h+1)V $\Rightarrow$ p(h+2)V
+\end{itemize}
+Entonces puedo afirmar que p(n) es V $\forall n \geq n_0$
+
+\subsubsection{Principio de Inducción V}
+Este es el principio de induccion completa o también llamada global. Sea p(n) una proposición sobre $\mathbb {N}$, si se cumple:
+\begin{itemize}
+    \item p(1) V
+    \item $\forall h \in \mathbb{N}$: p(k)V $\Rightarrow$ p(h+1)V para $1 \leq k \leq h$
+\end{itemize}
+Entonces puedo afirmar que p(n) es V $\forall n \in \mathbb{N}$
+
+\subsubsection{Principio de Inducción VI}
+Sea $n_0 \in \mathbb{Z}$ y sea p(n) una proposición en $\mathbb{Z}_{\geq n_0}$, si se cumple:
+\begin{itemize}
+    \item p($n_0$) V
+    \item $\forall h \geq n_0$: p(k)V $\Rightarrow$ p(h+1)V para $n_0 \leq k \leq h$
+\end{itemize}
+Entonces puedo afirmar que p(n) es V, $\forall n \geq n_0$
+
+\subsection{Sucesión de Fibonacci}
+Tengo que $F_0 = 0$, $F_1 = 1$, $F_{n+2} = F_{n+1} + F_{n}$ $\forall n \geq 0$. Ahi la sucesión está definida por recurrencia, luego de una breve demostración podemos llegar a que el término general de la sucesión de Fibonacci es
+\begin{equation}
+    F_n = \frac{1}{\sqrt{5}}(\varphi^n - \hat{\varphi}^n) \forall n \in \mathbb{N}_0
+\end{equation}
+
+\subsection{Sucesiones de Lucas}
+Sea $(a_n)_{n \in \mathbb{N}_0}$ una sucesión por recurrencia que satisface
+\begin{equation}
+    a_0 = \alpha, a_1 = \beta \text{ y } a_{n+2} = \gamma a_{n+1} + \delta a_n, \alpha,\beta,\gamma,\delta \text{ dados }, \forall n \in \mathbb{N}_0 
+\end{equation}
+Entonces se puede decir que se trata de una sucesión de Lucas.
+
+\chapter{Combinatoria de conjuntos, relaciones y funciones}
+\section{Combinatoria de conjuntos}
+
+Sea A un conjunto. El cardinal de A (notado $\card{A}$) es la cantidad de elementos que tiene A. Algunos ejemplos son: \begin{itemize}
+        \item $\card{\emptyset} = 0$
+        \item $\card{\mathbb{N}} = \infty$
+        \item $\card{\mathbb{R}} = \infty$
+        \item $\card{\left\{1,...,n\right\}}=n$
+\end{itemize}
+Sea A un conjunto finito, \card{A} $\in \mathbb{N}_0$
+Sean A,B conjuntos: $\card{A}:\card{B}$ $\iff \exists f:A \Rightarrow B$ biyectiva
+
+Algunas observaciones que se pueden hacer son: \begin{itemize}
+    \item $A \subseteq B \Rightarrow \card{A} \leq \card{B}$ (si A, B finitos, $A \subseteq B$ y $\card{A}=\card{B} \Rightarrow A = B$) 
+    \item Unión
+        \subitem Sean A, B tal que $A \cap B = \emptyset$, entonces $\card{(A \cup B)} = \card{A} + \card{B}$ 
+        \subitem Sean A, B cualesquiera, entonces $\card{(A \cup B)} = \card{A} + \card{B} - \card{(A \cap B)}$
+        \subitem $\card{A^c} = \card{U} - \card{A}, \card{(A \setminus B)} = \card{A} - \card{(A \cap B)}$      
+\end{itemize}
+
+\subsection{Cardinal de un producto cartesiano}
+Sean A, B finitos, $\card{(A \times B)} = \card{A} \cdot \card{B}$ pues $(A \times B) = \left\{(x,y): x \in A, y \in B\right\}$. En combinatoria el "$\lor$" se suma y el "$\land$" se multiplica. Otras observaciones que podemos hacer son: \begin{itemize}
+    \item Sean $A_1, A_2,...,A_n$ conjuntos tengo que $\card{(A_1 \times A_2 \times ... \times A_n)} = \prod_{k=1}^n \card{A_k}$
+    \item $\card{(A^n)} = (\card{A})^n$
+    \item $\card{(p(a))} = 2^{\card{A}}$
+\end{itemize}
+
+\section{Combinatoria de relaciones de A en B}
+Sean A, B conjuntos y $\card{A_m} = m$ y $\card{B_n} = n$ tengo que la cantidad de relaciones será:
+\begin{equation}
+    \card{\left\{\text{Relaciones de $A_m$ en $B_n$}\right\}} = \card{(p(A_m \times B_n))} = 2^{A-m \times B_n} = 2 ^{m \cdot n}
+\end{equation}
+
+\section{Combinatoria de funciones}
+Usando los mismos conjuntos A y B de la sección anterior tengo que $\card{\left\{f: A_m \rightarrow B_n\right\}} = n^m = \card{(B_n)}^{\card{(A_m)}}$. Es decir que la cantidad de funciones de un conjunto A con m elementos a un conjunto B con n elementos es el cardinal del codominio elevado al cardinal del dominio.
+
+Algunas observaciones antes de avanzar a la cantidad de funciones inyectivas y biyectivas: \begin{itemize}
+    \item Sea $f: A_m \rightarrow B_n$ una funcion inyectiva, tengo que $Im(f) \subseteq B_n \Rightarrow \card{(Im(f))} \leq n \Rightarrow m \leq n$
+    \item Sea $f: A_m \rightarrow B_n$ sobreyectiva $\iff n \leq m$
+    \item Sea $f: A_m \rightarrow B_n$ biyectiva $\iff m = n$
+\end{itemize}
+Ya con estas observaciones en cuenta tengo que la cantidad de funciones biyectivas es: \begin{equation}
+    \card{\left\{f: A_n \rightarrow B_n \text{ biyectivas}\right\}} = n \cdot (n-1) \cdot (n-2) \cdot ... \cdot 1 = n!
+\end{equation}
+Y también tengo que la cantidad de funciones inyectivas es: \begin{equation}
+    \card{\left\{f: A_m \rightarrow B_n \text{ inyectivas}\right\}}, \text{sea $m \leq n$} = \frac{n!}{(n-m)!} = \binom{n}{m} \cdot m!
+\end{equation}
+
+\subsection{Numero combinatorio}
+Sea $A_n$ un conjunto con n elementos y sea $0 \leq k \leq n$: \begin{equation}
+    \binom{n}{k}:= \text{cantidad de subconjuntos que tiene $A_n$ con exactamente k elementos}
+\end{equation}
+
+\subsubsection{Propiedades}
+Sea $n \in \mathbb{N}$ y sea $0 \leq k \leq n$: \begin{itemize}
+    \item $\binom{n}{0} = 1 = \binom{n}{n}$
+    \item $\binom{n}{1} = n$
+    \item $\binom{n}{k} = \binom{n}{n-k}$
+    \item $\sum_{k=0}^n \binom{n}{k} = 2^n$ pues $2^n = \card{(p(A_n))}$
+    \item $\binom{n+1}{k} = \binom{n}{k-1} + \binom{n}{k}$
+\end{itemize}
+
+\section{Binomio de Newton}
+La definición del binomio de Newton es la siguiente: \begin{equation}
+    (x+y)^n = \sum_{k=0}^n \binom{n}{k} \cdot x^k \cdot y^{n-k}
+\end{equation}
+Tiene los mismos coeficientes que el triangulo de Pascal.
+
+\chapter{Numeros Enteros}
+\section{Propiedades del conjunto $\mathbb{Z}$}
+Sean $a, b \in \mathbb{Z}$ tengo que: \begin{itemize}
+    \item $a + b \in \mathbb{Z}$
+    \item $a \cdot b \in \mathbb{Z}$
+    \item $0 \in \mathbb{Z}$, 0 es el elemento neutro
+    \item $a - b \in \mathbb{Z}$
+    \item Existencia de opuesto: $\forall a \in \mathbb{Z},\exists -a \in \mathbb{Z}: a + (-a) = 0$
+\end{itemize}
+
+\section{Divisibilidad}
+Sean $a,d \in \mathbb{Z}, d \neq 0$, d siendo el divisor. Se dice que d divide a a $\iff \exists k \in \mathbb{Z}$ tal que $a = k \cdot d$. Es decir que \begin{equation}
+    d | a \iff \exists k \in \mathbb{Z}: a = k \cdot d
+\end{equation} 
+Por tanto el conjunto de divisores de a se definirá como $Div(a) = \left\{d \in \mathbb{Z}, d \neq 0 \text{ tal que } d|a \right\}$. Es una relación de orden ya que es reflexiva, antisimétrica y transitiva.
+
+\subsection{Propiedades}
+\begin{itemize}
+    \item $d|a \iff |d| | |a|$
+    \item $d|a \Rightarrow |d| \leq |a|$
+    \item $d|a \Rightarrow d|c \cdot a, \forall c \in \mathbb{Z}$
+    \item En general: $d|c \cdot a \nRightarrow d|a \lor d|c$
+    \item $d|a \iff c \cdot d | c \cdot a$
+    \item $d|a \land a|b \Rightarrow d|(a+b)$
+    \item En general: $d|(a+b) \nRightarrow d|a \lor d|b$
+    \item $d|(a+b) \land d|a \Rightarrow d|b$
+    \item Si $(d|a_1 \land d|a_2 \land ... \land d|a_n) \Rightarrow d|a_1 + a_2 + ... + a_n$ y también $d|c_1a_1 + ... + c_na_n, \forall c_1,...,c_n \in \mathbb{Z}$
+    \item $(d|a \land d|b) \Rightarrow d^2|a \cdot b$
+    \item En general: $d^2|a \cdot b \nRightarrow (d|a \land d|b)$
+    \item $d|a \Rightarrow d^2|a^2$
+    \item $(d|a_1 \land d|a_2 \land ... \land d|a_n) \Rightarrow d^n|a_1 \cdot a_2 \cdot ... \cdot a_n$
+    \item En particular: $d|a \Rightarrow d^n | a^n$
+    \item $d|a \lor d|b \Rightarrow d|a \cdot b$
+    \item $(d| a \cdot b \land d \perp a) \Rightarrow d|b$
+    \item $d|a \cdot b \iff d|b$ si $d \perp a$
+    \item $(c|a \land d|a) \iff c \cdot d|a$ si $c \perp d$
+    \item $Div (0) = \mathbb{Z}-\left\{0\right\}$
+    \item $Inv (\mathbb{Z}) = \left\{-1,1\right\}$
+\end{itemize}
+
+\section{Definiciones de numeros primos y compuestos}
+Sea $a \in \mathbb{Z}$, se dice que a es primo $\iff a \neq 0, \pm 1$ y a tiene únicamente dos divisores positivos $\iff Div_+ (a) = \left\{1, |a|\right\} \iff (d|a \Rightarrow d = \pm 1, \pm a)$
+
+Se dice que a es compuesto $\iff a \neq 0, \pm 1$ y a no es primo $\iff Div_+(a) \subsetneq \left\{1, |a|\right\} \iff \exists d \in \mathbb{Z} \text{ con } 1 < d < |a|: d|a$
+
+\section{Congruencia}
+Sea $d \in \mathbb{Z}, d \neq 0$ tengo que a es congruente con modulo b mientras (a-b) sea divisible por d. Es decir, \begin{equation}
+    a \equiv b (d) \iff d|(a-b)
+\end{equation}
+
+\subsection{Propiedades}
+\begin{itemize}
+    \item $a \equiv b (d) \Rightarrow c \cdot a \equiv c \cdot b (d)$
+    \item En general: $c \cdot a \equiv c \cdot b (d) \nRightarrow a \equiv b (d)$
+    \item $a \equiv b (d) \iff c \cdot a \equiv c \cdot b (c \cdot d)$
+    \item $(a_1 \equiv b_1 (d) \land a_2 \equiv b_2 (d)) \Rightarrow a_1 + a_2 = b_1 + b_2 (d)$ y también vale $c_1a_1 + c_2a_2 \equiv c_1b_1 + c_2b_2 (d), \forall c_1,c_2 \in \mathbb{Z}$
+    \item $(a_1 \equiv b_1 (d) \land ... \land a_n \equiv b_n (d)) \Rightarrow a_1 + ... + a_n \equiv b_1 + ... + b_n (d)$ y también vale que $c_1a_1 + ... + c_na_n \equiv c_1b_1 + ... + c_nb_n (d), \forall c_1,...,c_n \in \mathbb{Z}$
+    \item Producto
+    \subitem $(a_1 \equiv b_1 (d)) \land (a_2 \equiv b_2 (d)) \Rightarrow a_1a_2 \equiv b_1b_2 (d)$
+    \subitem $a \equiv b (d) \Rightarrow a^2 \equiv b^2 (d)$ y también vale que $a \equiv b (d) \Rightarrow a^n \equiv b^n (d), \forall n \in \mathbb{N}$
+\end{itemize}
+
+\section{Algoritmo de división}
+Sean $a, d, q \in \mathbb{Z}$ con $d \neq 0$. Entonces $\exists q,r \in \mathbb{Z}$ con $a = qd + r$ con $0 \leq r < |d|$.
+
+Además q y r son únicos con estas dos condiciones: \begin{itemize}
+    \item q: cociente de dividir a a por d
+    \item $r = r_d (a)$ es el resto
+\end{itemize}
+
+\subsection{Propiedades}
+\begin{itemize}
+    \item Si $a = kd + r$ con $0 \leq r < |d|$ y $k \in \mathbb{Z}$, entonces $r = r_d (a)$
+    \item $r_d(a) = 0 \iff a = qd \iff d | a$
+\end{itemize}
+\subsubsection{Congruencia y restos}
+\begin{itemize}
+    \item $a \equiv r_d(a) (d)$
+    \item $a \equiv r (d)$ con $0 \leq r < |d| \Rightarrow r_d(a) = r$ pues $a-r=k \cdot d$ con $k \in \mathbb{Z}$
+    \item $r_1 \equiv r_2 (d)$ con $0 \leq r_1,r_2 < |d| \Rightarrow r_1 = r_2$
+    \item $a \equiv b (d) \iff r_d (a) = r_d (b)$
+\end{itemize}
+
+\section{Sistemas de numeración}
+\subsection{Desarrollo en base d}
+Sea $d \in \mathbb{N}, d \geq 2$, $\forall a \in \mathbb{N}$ existe un único $n \in \mathbb{N}$ y $r_0,...,r_n$ con $0 \leq r_k < d$ y $r_n \neq 0$ tal que \begin{equation}
+    a = r_nd^n + r_{n-1}d^{n-1}+...+r_1d + r_0 = \sum_{k=0}^n r_kd^k
+\end{equation}
+
+\section{Máximo Común Divisor (MCD)}
+Definición: Sean $a,b \in \mathbb{Z}$ no ambos nulos , el máximo común divisor entre a y b es el divisor común más grande que tienen a y b, se escribe (a:b)
+
+Se tiene: \begin{itemize}
+    \item (a:b) $\in \mathbb{N}$
+    \item $(a:b)|a  \text{ y } (a:b)|b$
+    \item $\forall d \in \mathbb{Z}: d|a \land d|b \Rightarrow d \leq (a:b)$
+    \item (a:b) siempre existe y es único
+\end{itemize}
+
+\subsection{Propiedades}
+\begin{itemize}
+    \item $a \neq 0, (a:0) = |a|$
+    \item $(a:\pm 1) = 1$
+    \item (a:b) = $(|a|:|b|)$
+    \item (a:b) = (b:a)
+    \item $(a:b)|a$ y $(a:b)|b$
+    \item $(a^n:b^n) = (a:b)^n$
+\end{itemize}
+
+\section{Algoritmo de Euclides (para mcd)}
+Sean $a,b \in \mathbb{Z}, b \neq 0$
+\begin{itemize}
+    \item $\forall k \in \mathbb{Z}, (a:b) = (b:a-kb)$
+    \item $a \equiv c (b) \Rightarrow (a:b) = (c:b)$ pues $b|a-c \Rightarrow a-c = kb \Rightarrow c = a-kb$
+    \item En particular $a \equiv r_b(a) (b) \Rightarrow (a:b) = (b:r_b(a))$    
+\end{itemize}
+También tengo que $\exists s,t \in \mathbb{Z}$ tal que $(a:b) = s\cdot a +t\cdot b$ y que si $d|a \land d|b \Rightarrow d|(a:b)$ pues si los divide individualmente, multiplicados por cualquier c entero también los dividirá, si divide a la suma también divide el mcd.
+
+\section{Numeros coprimos}
+Sea $a,b \in \mathbb{Z}$ no ambos nulos se dice que a y b son coprimos cuando (a:b) = 1. Entonces tengo que: \begin{equation}
+    a \perp b \iff (a:b) = 1 \iff \exists s,t \in \mathbb{Z}: 1 = s \cdot a + t \cdot b
+\end{equation}
+\subsection{Coprimizar}
+Sean $a,b \in \mathbb{Z}$ tengo que:
+$\frac{a}{(a:b)} \in \mathbb{Z}, \frac{b}{(a:b)} \in \mathbb{Z}$ son coprimos pues $(a:b) = s \cdot a + t \cdot b \Rightarrow 1 = \frac{s \cdot a}{(a:b)} + \frac{t \cdot b}{(a:b)}$. Entonces tomo $a = (a:b) \cdot a'$ y $b = (a:b) \cdot b'$ con $a' \perp b'$
+
+\subsubsection{Observaciones}
+\begin{itemize}
+    \item $(a:b) = 1$ y $(a:c) = 1 \Rightarrow (a:bc) = 1$
+    \item $(a:b) = 1 \Rightarrow (a:b^2) = 1 \Rightarrow (a:b^n) = 1 \Rightarrow (a^m: b^n) = 1$
+    \item $(a:b) = d \Rightarrow (a^n: b^n) = d^n$
+\end{itemize}
+
+\section{Numeros primos}
+Sea $a \in \mathbb{Z}, a\neq 0,\pm 1$ entonces $\exists p \in \mathbb{N}$ primo tal que $p|a$, defino la propiedad fundamental de los primos en la siguiente sección.
+\subsubsection{Propiedad fundamental de los números primos}
+Sea p primo, y $a \in \mathbb{Z}$ entonces $p \cancel{|}a \iff p \perp a$ entonces como consecuencia puedo decir que $p | ab \iff p|a \lor p|b$ con p primo. Además puedo afirmar que si $p|a^n \Rightarrow p|a$.
+
+\subsection{Teorema Fundamental de la Aritmética (TFA)}
+Sea $a \in \mathbb{Z}$ con $a \neq 0, \pm 1$ entonces a se escribe en forma única como $\pm$ producto de primos positivos. O sea que $\exists p_1,...,p_r$ primos positivos distintos y $m_1,...,m_r \in \mathbb{N}$ tal que: \begin{equation}
+    a  = \pm p_1^{m_1} \cdot p_2^{m_2} \cdot ... \cdot p_r^{m_r}
+\end{equation}
+y esa escritura es única.
+
+\subsection{Divisores de un número}
+Sea $a = \pm p_1^{m_1} \cdot p_2^{m_2} \cdot ... \cdot p_r^{m_r}$ con $m_1,m_2,...,m_r > 0$. Entonces \begin{math}
+    d|a \iff \begin{cases}
+\exists j_1 \text{ con } 0 \leq j_1 \leq m_1 \\
+\exists j_2 \text{ con } 0 \leq j_2 \leq m_2 \\
+... \\
+\exists j_r \text{ con } 0 \leq j_r \leq m_r
+\end{cases}
+\end{math}
+tal que $d = \pm p_1^{j_1} \cdot p_2^{j_2} \cdot ... \cdot p_r^{j_r}$.
+
+Respecto al número de divisores positivos de un número a de la misma forma que el anterior mencionado tengo que $\card{Div_+(a)} = (m_1 + 1)(m_2 + 1)...(m_r + 1)$
+
+\subsection{Factorización y mcd}
+Sea $a,b \in \mathbb{Z}$ no nulos, $a = \pm p_1^{m_1} \cdot ... \cdot p_r^{m_r}$ con $m_1,...,m_r \geq 0$ y $b = \pm p_1^{n_1} \cdot ... \cdot p_r^{n_r}$ con $n_1,...,n_r \geq 0$ tengo que \begin{math}
+    (a:b) = p_1^{\min(m_1, n_1)} \cdot \ldots \cdot p_r^{\min(m_r, n_r)}
+\end{math}
+
+Sean $p, q \in \mathbb{Z}$ primos $\neq/ p^m \perp q^n$ y por lo tanto $p^m|a$ y $q^n|a \Rightarrow p^nq^m|a$. Como no se superponen pero están en a, está en su producto.
+
+\section{Mínimo común múltiplo (MCM)}
+
+Sean $a,b \in \mathbb{Z}$ no nulos, el MCM [a:b] entre a y b es el menor múltiplo común en $\mathbb{N}$.
+
+\subsection{Propiedades}
+\begin{itemize}
+    \item $[a:b] \in \mathbb{N}$
+    \item $a|[a:b]$ y $b|[a:b]$
+    \item Sea $n \in \mathbb{Z}/a|m \text{ y } b|n \Rightarrow [a:b] | m$
+    \item $a \perp b \Rightarrow [a:b] = ab$
+\end{itemize}
+
+\subsection{Cálculo}
+Sea $a,b \in \mathbb{Z}$, escritos en su factorización única en primos y recordando que el MCD consiste en ver el minimo de los exponentes entre las dos potencias del mismo factor de forma repetida con cada uno (ver 4.10.3), entonces $[a:b] = p_1^{\max(m_1, n_1)} \cdot p_2^{\max(m_2,n_2)} \cdot ... \cdot p_r^{\max(m_r,n_r)}$.
+
+También voy a tener que el módulo de ab es el producto del MCD y MCM entre éstos, es decir, $(a:b) \cdot [a:b] = |a \cdot b| \Rightarrow [a:b] = \frac{|ab|}{(a:b)}$ 
+
+\section{Bibliografía}
+Krick, T. (2017). Fascículo 9: Álgebra I. Departamento de Matemática de la Facultad de Ciencias Exactas y Naturales (Universidad de Buenos Aires).
+
+\end{document}
+
+
